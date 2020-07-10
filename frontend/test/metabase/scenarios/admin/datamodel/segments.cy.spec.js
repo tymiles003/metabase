@@ -46,6 +46,7 @@ describe("scenarios > admin > datamodel > segments", () => {
 
   it("should update that segment", () => {
     cy.visit("/admin");
+    cy.pause()
     cy.contains("Data Model").click();
     cy.contains("Segments").click();
 

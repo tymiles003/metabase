@@ -142,7 +142,7 @@ describe("scenarios > admin > datamodel > field", () => {
       cy.contains("Title");
     });
 
-    it("lets you change to 'Custom mapping' and set custom values", () => {
+    it.skip("lets you change to 'Custom mapping' and set custom values", () => {
       visitAlias("@ORDERS_QUANTITY_URL");
 
       cy.contains("Use original value").click();
