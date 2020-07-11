@@ -8,29 +8,23 @@ describe("scenarios > admin > datamodel > segments", () => {
   });
 
   it("should create a segment", () => {
-    cy.visit("/admin");
-    cy.contains("Data Model").click();
-    cy.contains("Segments").click();
-    cy.contains("New segment").click();
-    cy.contains("Select a table").click();
-    popover()
-      .contains("Orders")
-      .click({ force: true }); // this shouldn't be needed, but there were issues with reordering as loads happeend
+    cy.visit("/admin/datamodel/database/1");
+    cy.findByText("Orders").click();
+    cy.contains("Add a Segment").click();
 
-    cy.url().should("match", /segment\/create$/);
+    cy.url().should("match", /segment\/create/);
     cy.contains("Create Your Segment");
 
     // filter to orders with total under 100
-    cy.contains("Add filters").click();
+    cy.get(".Icon-add").click();
     cy.contains("Total").click();
     cy.contains("Equal to").click();
     cy.contains("Less than").click();
-    cy.get('[placeholder="Enter a number"]').type("100");
+    cy.findByPlaceholderText("Enter a number").type("100");
     popover()
       .contains("Add filter")
       .click();
 
-    //
     cy.contains("12765 rows");
 
     // fill in name/description
@@ -39,20 +33,16 @@ describe("scenarios > admin > datamodel > segments", () => {
 
     // saving bounces you back and you see new segment in the list
     cy.contains("Save changes").click();
-    cy.url().should("match", /datamodel\/segments$/);
+    cy.url().should("match", /datamodel\/database/);
     cy.contains("orders <100");
     cy.contains("Filtered by Total");
   });
 
   it("should update that segment", () => {
-    cy.visit("/admin");
-    cy.pause()
-    cy.contains("Data Model").click();
-    cy.contains("Segments").click();
+    cy.visit("/admin/datamodel/database/1");
+    cy.findByText("Orders").click();
 
-    cy.contains("orders <100")
-      .parent()
-      .parent()
+    cy.get("#SegmentsList")
       .find(".Icon-ellipsis")
       .click();
     cy.contains("Edit Segment").click();
@@ -88,7 +78,7 @@ describe("scenarios > admin > datamodel > segments", () => {
     cy.contains("Save changes").click();
 
     // get redirected to previous page and see the new segment name
-    cy.url().should("match", /datamodel\/segments$/);
+    cy.url().should("match", /datamodel\/database/);
     cy.contains("orders >10");
 
     // clean up

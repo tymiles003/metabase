@@ -18,12 +18,11 @@ describe("scenarios > admin > datamodel > metrics", () => {
     cy.contains("Create Your Metric");
 
     // filter to orders with total under 100
-    cy.get(".Icon-add")
-      .click();
+    cy.get(".Icon-add").click();
     cy.findByText("Total").click();
     cy.contains("Equal to").click();
     cy.contains("Less than").click();
-    cy.get('[placeholder="Enter a number"]').type("100");
+    cy.findByPlaceholderText("Enter a number").type("100");
     popover()
       .contains("Add filter")
       .click();
