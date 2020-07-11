@@ -44,10 +44,10 @@ describe("scenarios > admin > datamodel > metrics", () => {
   it("should update that metric", () => {
     cy.visit("/admin/datamodel/database/1");
     cy.findByText("Orders").click();
-    
+
     cy.get("#MetricsList")
       .find(".Icon-ellipsis")
-      .click()
+      .click();
     cy.contains("Edit Metric").click();
 
     // update the filter from "< 100" to "> 10"
